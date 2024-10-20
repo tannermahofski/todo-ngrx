@@ -1,0 +1,28 @@
+<header class="todo-page-header">
+  <h1 class="todo-page-header-text">Todo App</h1>
+</header>
+
+<main class="todo-page-content">
+  <div class="todo-page-left-section">
+    <h2 class="todo-page-section-header">Todo List</h2>
+    @if ((todoState$ | async)?.error) {
+    <div class="error-message">
+      {{ (todoState$ | async)?.error ?? "" }}
+    </div>
+    } @else { @for (todo of allTodos$ | async; track todo.id) {
+    <app-todo-item [todo]="todo" />
+    } }
+  </div>
+  <div class="todo-page-right-section">
+    <h2 class="todo-page-section-header">Add A Todo:</h2>
+    <div class="todo-page-input-section">
+      <input
+        class="todo-page-todo-input"
+        placeholder="Add a todo here"
+        [value]="todoInput()"
+        (input)="onTodoInput($event)"
+      />
+      <button (click)="onCreateTodo()">Create</button>
+    </div>
+  </div>
+</main>
