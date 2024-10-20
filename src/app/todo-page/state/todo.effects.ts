@@ -21,7 +21,6 @@ export class TodoEffects {
     this.actions$.pipe(
       ofType(loadTodos),
       switchMap(() => {
-        console.log('in switch map');
         return from(this.todoService.getTodos()).pipe(
           map((todos) => {
             console.log('success');
